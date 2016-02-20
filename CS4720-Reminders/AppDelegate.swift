@@ -3,7 +3,7 @@
 //  CS4720-Reminders
 //
 //  Created by Guanmei Liang on 2/19/16.
-//  Copyright © 2016 Guanmei Liang. All rights reserved.
+//  Copyright © 2016 Guanmei Liang. All rights rese/Users/gliang/Documents/CS4720-Reminders/CS4720-Reminders/AppDelegate.swiftrved.
 //
 
 import UIKit
