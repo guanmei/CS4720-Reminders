@@ -33,11 +33,16 @@ class NewReminderViewController: UIViewController {
         
         // when save button is pressed
         if saveButton === sender {
-            let title = titleLabel.text!
+            let title = titleLabel.text ?? ""
             let description = descriptionLabel.text ?? ""
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.FullStyle
+            formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+
+            let dateString = formatter.stringFromDate(dateTimeLabel.date)
             
             //passes this reminder object back to previous view
-            reminder = Reminder(title: title, description: description)
+            reminder = Reminder(title: title, description: description, dateTime: dateString)
             
         }
     }

@@ -39,7 +39,7 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ReminderTableViewCell
         let reminder = reminders[indexPath.row]
         cell.titleLabel.text = reminder.title
-        cell.descriptionLabel.text = reminder.description
+        cell.dateLabel.text = reminder.dateTime
         
         return cell
     }
@@ -47,8 +47,8 @@ class ViewController: UITableViewController {
     @IBAction func unwindToReminderList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? NewReminderViewController, reminder = sourceViewController.reminder {
             let newIndexPath = NSIndexPath(forRow: reminders.count, inSection: 0)
-                reminders.append(reminder)
-                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            reminders.append(reminder)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
         }
     }
 }

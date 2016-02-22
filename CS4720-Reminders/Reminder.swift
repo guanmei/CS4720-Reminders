@@ -13,11 +13,13 @@ class Reminder {
     
     var title: String
     var description: String?
+    var dateTime: String
     
     // MARK: Initialization
-    init?(title: String, description: String?) {
+    init?(title: String, description: String?, dateTime: String) {
         self.title = title
         self.description = description
+        self.dateTime = dateTime
         
         if title.isEmpty {
             return nil
