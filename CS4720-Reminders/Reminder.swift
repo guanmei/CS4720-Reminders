@@ -14,12 +14,14 @@ class Reminder {
     var title: String
     var description: String?
     var dateTime: String
+    var date: NSDate
     
     // MARK: Initialization
-    init?(title: String, description: String?, dateTime: String) {
+    init?(title: String, description: String?, dateTime: String, date: NSDate){
         self.title = title
         self.description = description
         self.dateTime = dateTime
+        self.date = date
         
         if title.isEmpty {
             return nil

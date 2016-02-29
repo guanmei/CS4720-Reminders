@@ -39,10 +39,11 @@ class NewReminderViewController: UIViewController {
             formatter.dateStyle = NSDateFormatterStyle.FullStyle
             formatter.timeStyle = NSDateFormatterStyle.ShortStyle
 
-            let dateString = formatter.stringFromDate(dateTimeLabel.date)
+            let date = dateTimeLabel.date
+            let dateString = formatter.stringFromDate(date)
             
             //passes this reminder object back to previous view
-            reminder = Reminder(title: title, description: description, dateTime: dateString)
+            reminder = Reminder(title: title, description: description, dateTime: dateString, date: date)
             
         }
     }

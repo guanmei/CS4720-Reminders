@@ -18,6 +18,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        reminders.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +50,8 @@ class ViewController: UITableViewController {
             let newIndexPath = NSIndexPath(forRow: reminders.count, inSection: 0)
             reminders.append(reminder)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            reminders.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+            tableView.reloadData()
         }
     }
 }
