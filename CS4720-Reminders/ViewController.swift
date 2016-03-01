@@ -12,6 +12,7 @@ class ViewController: UITableViewController {
 
     // MARK: Properties
     var reminders = [Reminder]()
+    var timer: NSTimer!
 
     // MARK: Actions
 
@@ -53,6 +54,13 @@ class ViewController: UITableViewController {
         if editingStyle == .Delete {
             reminders.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            if indexPath.row == 0 {
+                timer.invalidate()
+                if reminders.count > 0 {
+                    self.timer = NSTimer(fireDate: self.reminders[0].date, interval: 1, target: self, selector: Selector("showAlert"), userInfo: nil, repeats: false)
+                    NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: "NSDefaultRunLoopMode")
+                }
+            }
         }
     }
     
@@ -71,16 +79,48 @@ class ViewController: UITableViewController {
         if let sourceViewController = sender.sourceViewController as? NewReminderViewController, reminder = sourceViewController.reminder {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 reminders[selectedIndexPath.row] = reminder
-                // Not necessary with the reload at the end?
-                //tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
             } else {
                 let newIndexPath = NSIndexPath(forRow: reminders.count, inSection: 0)
                 reminders.append(reminder)
                 tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
             }
             reminders.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+            if let timer = timer {
+                timer.invalidate()
+            }
+            timer = NSTimer(fireDate: reminders[0].date, interval: 1, target: self, selector: Selector("showAlert"), userInfo: nil, repeats: false)
+            NSRunLoop.currentRunLoop().addTimer(timer, forMode: "NSDefaultRunLoopMode")
             tableView.reloadData()
         }
+    }
+    
+    func showAlert() {
+        let alertController = UIAlertController(title: reminders[0].title, message: "The time has come!", preferredStyle: .Alert)
+        let postponeAction = UIAlertAction(title: "Postpone", style: .Default) { (action) in
+            self.reminders[0].date = self.reminders[0].date.dateByAddingTimeInterval(3600)
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.FullStyle
+            formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            self.reminders[0].dateTime = formatter.stringFromDate(self.reminders[0].date)
+            self.reminders.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+            if self.reminders.count > 0 {
+                self.timer = NSTimer(fireDate: self.reminders[0].date, interval: 1, target: self, selector: Selector("showAlert"), userInfo: nil, repeats: false)
+                NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: "NSDefaultRunLoopMode")
+            }
+            self.tableView.reloadData()
+        }
+        alertController.addAction(postponeAction)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel) { (action) in
+            let path = NSIndexPath(forRow: 0, inSection: 0)
+            self.reminders.removeAtIndex(0)
+            self.tableView.deleteRowsAtIndexPaths([path], withRowAnimation: .Fade)
+            if self.reminders.count > 0 {
+                self.timer = NSTimer(fireDate: self.reminders[0].date, interval: 1, target: self, selector: Selector("showAlert"), userInfo: nil, repeats: false)
+                NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: "NSDefaultRunLoopMode")
+            }
+        }
+        alertController.addAction(dismissAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }
 

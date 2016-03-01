@@ -13,6 +13,8 @@ class NewReminderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        dateTimeLabel.minimumDate = NSDate().dateByAddingTimeInterval(60)
+        
         if let r = reminder {
             self.title = "Edit Reminder"
             titleLabel.text = r.title
@@ -58,6 +60,20 @@ class NewReminderViewController: UIViewController {
             reminder = Reminder(title: title, description: description, dateTime: dateString, date: date)
             
         }
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        let reminderDate = dateTimeLabel.date
+        let currentDate = NSDate()
+        if currentDate.compare(reminderDate) != NSComparisonResult.OrderedAscending {
+            let alertController = UIAlertController(title: "This time has already passed!", message: "Please choose a time in the future.", preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: "OK", style: .Default) { (action) in }
+            alertController.addAction(okAction)
+            presentViewController(alertController, animated: true, completion: nil)
+            dateTimeLabel.minimumDate = NSDate().dateByAddingTimeInterval(60)
+            return false
+        }
+        return true
     }
     
     // MARK: Properties
