@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B03629C1C78CECA0054D881 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03629B1C78CECA0054D881 /* View.xib */; settings = {ASSET_TAGS = (); }; };
-		9B0362A21C7900350054D881 /* NewReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0362A11C7900350054D881 /* NewReminderViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		9B0362A41C79025C0054D881 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0362A31C79025C0054D881 /* Reminder.swift */; settings = {ASSET_TAGS = (); }; };
-		9B0362A81C790C310054D881 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0362A71C790C310054D881 /* ReminderTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		9B03629C1C78CECA0054D881 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03629B1C78CECA0054D881 /* View.xib */; };
+		9B0362A21C7900350054D881 /* NewReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0362A11C7900350054D881 /* NewReminderViewController.swift */; };
+		9B0362A41C79025C0054D881 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0362A31C79025C0054D881 /* Reminder.swift */; };
+		9B0362A81C790C310054D881 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0362A71C790C310054D881 /* ReminderTableViewCell.swift */; };
 		9B2304F21C77DCE40071F38F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2304F11C77DCE40071F38F /* AppDelegate.swift */; };
 		9B2304F41C77DCE40071F38F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2304F31C77DCE40071F38F /* ViewController.swift */; };
 		9B2304F71C77DCE40071F38F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B2304F51C77DCE40071F38F /* Main.storyboard */; };
@@ -157,6 +157,7 @@
 				TargetAttributes = {
 					9B2304ED1C77DCE40071F38F = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = G9C59ML8QE;
 					};
 					9B2305011C77DCE40071F38F = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -340,10 +341,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "CS4720-Reminders/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.virginia.cs.CS4720-Reminders";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -351,10 +355,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "CS4720-Reminders/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.virginia.cs.CS4720-Reminders";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
