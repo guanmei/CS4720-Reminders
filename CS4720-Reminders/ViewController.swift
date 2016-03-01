@@ -44,12 +44,29 @@ class ViewController: UITableViewController {
         
         return cell
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowDetail" {
+            let remDetailViewCtrl = segue.destinationViewController as! NewReminderViewController
+            if let selectedCell = sender as? ReminderTableViewCell {
+                let indexPath = tableView.indexPathForCell(selectedCell)!
+                let selectedReminder = reminders[indexPath.row]
+                remDetailViewCtrl.reminder = selectedReminder
+            }
+        }
+    }
 
     @IBAction func unwindToReminderList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? NewReminderViewController, reminder = sourceViewController.reminder {
-            let newIndexPath = NSIndexPath(forRow: reminders.count, inSection: 0)
-            reminders.append(reminder)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                reminders[selectedIndexPath.row] = reminder
+                // Not necessary with the reload at the end?
+                //tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+            } else {
+                let newIndexPath = NSIndexPath(forRow: reminders.count, inSection: 0)
+                reminders.append(reminder)
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            }
             reminders.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
             tableView.reloadData()
         }

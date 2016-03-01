@@ -13,7 +13,14 @@ class NewReminderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let r = reminder {
+            self.title = "Edit Reminder"
+            titleLabel.text = r.title
+            descriptionLabel.text = r.description
+            dateTimeLabel.date = r.date
+        } else {
+            self.title = "New Reminder"
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +32,12 @@ class NewReminderViewController: UIViewController {
     
     // MARK: - Navigation
     @IBAction func cancel(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        let isPresentingInAddMode = presentingViewController is UINavigationController
+        if isPresentingInAddMode {
+            dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            navigationController!.popViewControllerAnimated(true)
+        }
     }
     
     //called before navigation to another view
